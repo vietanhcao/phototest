@@ -1,8 +1,7 @@
 
-import bannerBG from '../assets/images/bg-23.jpeg'
 
-const Images = {
-  BANNER_BG: bannerBG
-}
+export const PHOTO_CATEGORY_OPTIONS = [
+  {value: 1, label: 'VN'},
+  {value: 2, label: 'USA'},
 
-export default Images
+]

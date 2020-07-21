@@ -5,6 +5,7 @@ import { BrowserRouter, Link, Switch, Route, Redirect } from 'react-router-dom';
 import NotFound from './components/NotFound/NotFound';
 import Header from './components/Header/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'antd/dist/antd.css';
 
 // lazy load
 const Photo = React.lazy(() => import('./features/Photo/Photo'))
