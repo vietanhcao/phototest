@@ -24,12 +24,12 @@ SelectField.defaultProps = {
 
 function SelectField(props) {
   const {field, form, options, label, placeholder, disabled} = props;
-  const {name} = field;
+  const {name, value} = field;
 
   const { errors, touched} = form;
   const showError = errors[name] && touched[name];
 
-
+  const selectedOption = options.find(option => option.value === value);
 
   const handleSelectedOptionChange = (selectedOption) => {
     const selectedValue = selectedOption? selectedOption.value: selectedOption
@@ -51,8 +51,11 @@ function SelectField(props) {
 
       <Select
         id={name}
+        {...field}
         onChange={handleSelectedOptionChange}
 
+
+        value={selectedOption}
         placeholder={placeholder}
         isDisabled={disabled}
         options={options}

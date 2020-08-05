@@ -1,10 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import Main from '../Main/Main';
 
 function AddEdit(props) {
+
+
+  
   return (
     <div>
-      AddEdit
+      <Main/>
     </div>
   )
 }

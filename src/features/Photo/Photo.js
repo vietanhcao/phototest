@@ -4,6 +4,7 @@ import { Switch, useRouteMatch, Redirect, Route } from "react-router-dom";
 import Main from "./pages/Main/Main";
 import AddEdit from "./pages/AddEdit/AddEdit";
 import NotFound from "../../components/NotFound/NotFound";
+import List from './pages/List/List';
 
 function Photo(props) {
 	const match = useRouteMatch();
@@ -12,7 +13,8 @@ function Photo(props) {
 	return (
 		<Switch>
 			<Route exact path={match.url} component={Main} />
-			<Route path={`${match.url}/add`} component={AddEdit} />
+			<Route exact path={`${match.url}/list`} component={List} />
+			{/* <Route exact path={`${match.url}/add`} component={AddEdit} /> */}
 			<Route path={`${match.url}/:photoId`} component={AddEdit} />
 			<Route component={NotFound} />
 		</Switch>
