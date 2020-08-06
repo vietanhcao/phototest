@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
-import PhotoList from 'components/PhotoList/PhotoList'
 import { removePhoto } from 'features/Photo/photoSlice'
 import { useHistory } from 'react-router-dom'
+import PhotoList from '../../components/PhotoList/PhotoList';
 
 function List(props) {
   const  photos = useSelector(state => state.photos)

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Banner from "components/Banner/Banner";
-import PhotoForm from "components/PhotoForm/PhotoForm";
 import Images from "constants/images";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment from 'moment';
+import PhotoForm from '../../components/PhotoForm/PhotoForm';
 
 
 function Main(props) {
@@ -34,7 +34,7 @@ function Main(props) {
   }, [])
 	return (
 		<div>
-			<Banner title="Your banner 🤐 " backgroundUrl={Images.BANNER_BG} />
+			<Banner title="Your banner 🤐1 " backgroundUrl={Images.BANNER_BG} />
 			<div className="photo-edit__form" >
 				<PhotoForm initialValues={initialValues} isAddMode={isAddMode} />
       </div>
