@@ -19,7 +19,7 @@ const initialState = [
     categoryId:1,
     photo:"https://picsum.photos/id/702/300/300",
     datePicker:"2020-08-07T04:46:42.016Z",
-    titleAntd:"dfsdf",``
+    titleAntd:"dfsdf",
     password:"54Tamyduat",
     confirmPassword:"54Tamyduat",
     _id:1596602812249,
@@ -56,7 +56,7 @@ const photo =  createSlice({
   extraReducers: {
     // Add reducers for additional action types here, and handle loading state as needed
     [fetchUserById.pending]: (state, action) => {
-      state.push({title: 'loading'})
+      // state.push({title: 'loading'})
     },
     [fetchUserById.fulfilled]: (state, action) => {
       // Add user to the state array

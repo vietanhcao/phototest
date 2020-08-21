@@ -1,7 +1,7 @@
 import React, { Suspense, useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Link, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Link, Switch, Route, Redirect, Router } from 'react-router-dom';
 import NotFound from './components/NotFound/NotFound';
 import Header from './components/Header/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,6 +14,9 @@ import { unwrapResult } from '@reduxjs/toolkit';
 // lazy load
 const Photo = React.lazy(() => import('./features/Photo/Photo'))
 
+
+
+
 function App() {
 
   const [productList, setProductList] = useState([]);
@@ -22,8 +25,7 @@ function App() {
   const fetchProductList = async () => {
     try {
 
-      await dispatch(fetchUserById(25010620))
-      await dispatch(fetchUserById(18808865))
+      // await dispatch(fetchUserById(25010620))
       // const BBB = await unwrapResult(aaa)
       // console.log("fetchProductList -> aaa", aaa, BBB)
       
@@ -36,7 +38,7 @@ function App() {
     }
   }
   fetchProductList();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="photo-app">
