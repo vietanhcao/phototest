@@ -13,6 +13,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 
 import { getMe } from './app/userSlice';
 import firebase from 'firebase';
+import { Spinner } from 'reactstrap';
 
 
 // lazy load
@@ -88,7 +89,7 @@ function App() {
 
   return (
     <div className="photo-app">
-      <Suspense fallback={<div>... loading</div>} >
+      <Suspense fallback={<Spinner size="sm" />} >
         <BrowserRouter>
           <Header />
           <ul>

@@ -1,15 +1,41 @@
-import { configureStore } from "@reduxjs/toolkit"
+import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit';
 
-import photoReducer from '../features/Photo/photoSlice'
-import userReducer from "./userSlice"
+import photoReducer from '../features/Photo/photoSlice';
+import userReducer from './userSlice';
+import storage from 'redux-persist/lib/storage';
+import {
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  persistStore,
+} from 'redux-persist';
 
-const rootReducer = {
+//persist
+const persistConfig = {
+  key: 'photo-app',
+  version: 1,
+  storage,
+  whitelist: ['photos'],
+};
+//redux
+const rootReducer = combineReducers({
   photos: photoReducer,
-  user: userReducer
-}
+  user: userReducer,
+});
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const store = configureStore({
-  reducer: rootReducer,
-}) 
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
+});
 
-export default store
+export const persistor = persistStore(store);
+// export default store
