@@ -2,6 +2,38 @@ import axios from 'axios';
 import queryString from 'query-string';
 import i18n from '../i18n';
 import { createBrowserHistory } from 'history';
+import firebase from 'firebase'
+
+const getFirebaseToken = async () => {
+  const currentUser = firebase.auth().currentUser
+  if(currentUser) return currentUser.getToken();
+
+  //not login user
+  const hasRememberedAccount = localStorage.getItem('firebaseui::rememberedAccounts')
+  if(!hasRememberedAccount) return null;
+
+  //login but current user is not fetched -> wait for 10 seconds
+  return new Promise((resolve, reject) =>{
+
+    const idTimeout =  setTimeout(() => {
+      reject(null)
+    }, 10000);
+
+    const unregisterAuthObserver = firebase.auth().onAuthStateChanged(
+      async (user) => {
+        if(!user) reject(null);
+        
+        const token = await user.getIdToken()
+
+        resolve(token);
+        unregisterAuthObserver();
+        clearTimeout(idTimeout);
+      }
+    );
+  })
+
+
+}
 
 
 // Set up default config for http requests here
@@ -21,11 +53,27 @@ axiosClient.interceptors.request.use(
     // if (token) {
     //   config.headers['Authorization'] = `Token ${token}`
     // }
-    config.headers = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJteHZBZG1pbjMiLCJhdXRoIjpbeyJhdXRob3JpdHkiOiJBRE1JTiJ9XSwiaWF0IjoxNTk2NjkyNzEyLCJleHAiOjE1OTY3MzU5MTJ9.oHl5EO-WhZ-o_qDfWoJ9Y1cqzIcN1xNKPB57QWM3tF4`,
-    };
+    // const currentUser = firebase.auth().currentUser
+    // if (currentUser) {
+    //   const token = await currentUser.getIdToken()
+    //   config.headers = {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //     Authorization: `Bearer ${token}`,
+    //   };
+    // }
+
+    const token = await getFirebaseToken()
+
+    if(token){
+      config.headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }
+    }
+
+    
     return config;
   },
   (error) => {
